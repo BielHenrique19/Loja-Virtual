@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Loja | Ofertas Especiais</title>
+    <title>Minha Loja | Fone Bluetooth, Smartwatch e mais em Abatiá-PR</title>
+    <meta name="description" content="Loja virtual com entrega rápida. Fone Bluetooth, Smartwatch, Mochila e mais. Peça pelo WhatsApp.">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f4f9; color: #333; line-height: 1.6; }
@@ -17,21 +18,26 @@
         .hero h2 { font-size: 2.2rem; margin-bottom: 0.5rem; }
 
         .container { max-width: 1100px; margin: auto; padding: 0 1rem; }
-        .search-bar { width: 100%; padding: 0.8rem 1rem; margin-bottom: 1.5rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; }
+        .filters { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .search-bar { flex: 1; min-width: 200px; padding: 0.8rem 1rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; }
+        .filter-select { padding: 0.8rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; background: white; cursor: pointer; }
         
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
         .product-card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; transition: transform 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
         .product-card:hover { transform: translateY(-5px); }
         .product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 1rem; background-color: #e5e7eb; }
         .img-placeholder { width: 100%; height: 200px; border-radius: 5px; margin-bottom: 1rem; background-color: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 0.9rem; }
+        .category-badge { display: inline-block; background: #dbeafe; color: #1e40af; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; margin-bottom: 0.5rem; font-weight: bold; }
         .product-card h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
         .product-desc { font-size: 0.9rem; color: #6b7280; margin-bottom: 0.8rem; }
-        .price { font-size: 1.3rem; font-weight: bold; color: #16a34a; margin-bottom: 1rem; }
+        .price { font-size: 1.3rem; font-weight: bold; color: #16a34a; margin-bottom: 0.2rem; }
+        .installments { font-size: 0.85rem; color: #6b7280; margin-bottom: 1rem; }
         .add-btn { background-color: #111827; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; transition: background-color 0.2s; }
         .add-btn:hover { background-color: #374151; }
         .add-btn.added { background-color: #16a34a; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 200; }
+        .modal.open { display: flex; }
         .modal-content { background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 1rem; margin-bottom: 1rem; }
         .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
@@ -40,22 +46,26 @@
         .qty-btn { background: #e5e7eb; border: none; width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .remove-btn { color: #dc2626; background: none; border: none; cursor: pointer; font-size: 0.9rem; margin-left: 0.5rem; }
         .cart-total { font-size: 1.3rem; font-weight: bold; text-align: right; margin: 1rem 0; }
+        .clear-btn { background: none; border: none; color: #dc2626; cursor: pointer; font-size: 0.9rem; text-decoration: underline; }
         
         .checkout-form { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.2rem; border-top: 1px solid #eee; padding-top: 1rem; }
         .checkout-form input, .checkout-form select { padding: 0.6rem; border: 1px solid #d1d5db; border-radius: 5px; font-size: 0.95rem; }
+        .checkout-form input.error { border-color: #dc2626; }
         
         .checkout-btn { background-color: #16a34a; color: white; border: none; padding: 0.8rem; width: 100%; border-radius: 5px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
         .checkout-btn:hover { background-color: #15803d; }
         .checkout-btn:disabled { background-color: #9ca3af; cursor: not-allowed; }
 
         footer { text-align: center; padding: 2rem; background: #111827; color: #9ca3af; margin-top: 2rem; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #111827; color: white; padding: 0.8rem 1.5rem; border-radius: 8px; z-index: 300; transition: transform 0.3s; font-weight: bold; }
+        .toast.show { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Minha Loja</h1>
-        <button class="cart-btn" onclick="toggleCart()">🛒 Carrinho (<span id="cart-count">0</span>)</button>
+        <button class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrinho">🛒 Carrinho (<span id="cart-count">0</span>)</button>
     </header>
 
     <section class="hero">
@@ -64,7 +74,15 @@
     </section>
 
     <main class="container">
-        <input type="text" class="search-bar" id="search-input" placeholder="Buscar produto..." oninput="renderProducts()">
+        <div class="filters">
+            <input type="text" class="search-bar" id="search-input" placeholder="Buscar produto..." oninput="renderProducts()">
+            <select class="filter-select" id="category-filter" onchange="renderProducts()">
+                <option value="">Todas as categorias</option>
+                <option value="Eletrônicos">Eletrônicos</option>
+                <option value="Acessórios">Acessórios</option>
+                <option value="Casa">Casa</option>
+            </select>
+        </div>
         <div class="products-grid" id="products-list"></div>
     </main>
 
@@ -72,14 +90,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Seu Carrinho</h2>
-                <button class="close-btn" onclick="toggleCart()">&times;</button>
+                <button class="close-btn" onclick="toggleCart()" aria-label="Fechar carrinho">&times;</button>
             </div>
             <div id="cart-items"></div>
-            <div class="cart-total">Total: R$ <span id="cart-total">0,00</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <button class="clear-btn" onclick="clearCart()">Limpar carrinho</button>
+                <div class="cart-total">Total: <span id="cart-total">R$ 0,00</span></div>
+            </div>
             
             <div class="checkout-form" id="checkout-form">
-                <input type="text" id="customer-name" placeholder="Seu nome *" required>
-                <input type="text" id="customer-address" placeholder="Endereço de entrega (ou 'Retirar na loja') *" required>
+                <input type="text" id="customer-name" placeholder="Seu nome *" autocomplete="name">
+                <input type="text" id="customer-address" placeholder="Endereço de entrega (ou 'Retirar na loja') *" autocomplete="street-address">
                 <select id="payment-method">
                     <option value="Pix">Pagamento via Pix</option>
                     <option value="Cartão de Crédito/Débito">Cartão na entrega</option>
@@ -91,6 +112,8 @@
         </div>
     </div>
 
+    <div class="toast" id="toast">Produto adicionado!</div>
+
     <footer>
         <p>&copy; 2026 Minha Loja. Todos os direitos reservados.</p>
     </footer>
@@ -99,48 +122,70 @@
         const WHATSAPP_NUMBER = "554384817218";
 
         const products = [
-            { id: 1, name: "Fone Bluetooth Pro", desc: "Cancelamento de ruído e 24h de bateria.", price: 149.90, img: "" },
-            { id: 2, name: "Smartwatch Esportivo", desc: "Monitor cardíaco, GPS e à prova d'água.", price: 229.00, img: "" },
-            { id: 3, name: "Mochila Impermeável", desc: "Compartimento para notebook até 15.6''.", price: 119.50, img: "" },
-            { id: 4, name: "Garrafa Térmica Inox", desc: "Mantém bebidas geladas por 24h (750ml).", price: 65.00, img: "" }
+            { id: 1, name: "Fone Bluetooth Pro", desc: "Cancelamento de ruído e 24h de bateria.", price: 149.90, img: "", category: "Eletrônicos" },
+            { id: 2, name: "Smartwatch Esportivo", desc: "Monitor cardíaco, GPS e à prova d'água.", price: 229.00, img: "", category: "Eletrônicos" },
+            { id: 3, name: "Mochila Impermeável", desc: "Compartimento para notebook até 15.6''.", price: 119.50, img: "", category: "Acessórios" },
+            { id: 4, name: "Garrafa Térmica Inox", desc: "Mantém bebidas geladas por 24h (750ml).", price: 65.00, img: "", category: "Casa" }
         ];
 
-        let cart = JSON.parse(localStorage.getItem('minha_loja_cart')) || [];
+        let cart = [];
+        try {
+            cart = JSON.parse(localStorage.getItem('minha_loja_cart')) || [];
+        } catch(e) { cart = []; }
 
         function saveCart() {
             localStorage.setItem('minha_loja_cart', JSON.stringify(cart));
         }
 
         function formatBRL(value) {
-            return value.toFixed(2).replace('.', ',');
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         function renderProducts() {
             const term = document.getElementById('search-input').value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term));
+            const category = document.getElementById('category-filter').value;
+            const filtered = products.filter(p => 
+                (p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term)) &&
+                (!category || p.category === category)
+            );
             const list = document.getElementById('products-list');
 
             if (filtered.length === 0) {
-                list.innerHTML = "<p>Nenhum produto encontrado.</p>";
+                list.innerHTML = "<p>Nenhum produto encontrado. Tente outra busca.</p>";
                 return;
             }
 
             list.innerHTML = filtered.map(p => `
-                <div class="product-card">
+                <article class="product-card">
                     <div>
                         ${p.img 
-                            ? `<img src="${p.img}" alt="${p.name}">` 
+                            ? `<img src="${p.img}" alt="${escapeHtml(p.name)}" loading="lazy">` 
                             : `<div class="img-placeholder">Sem imagem</div>`
                         }
-                        <h3>${p.name}</h3>
-                        <p class="product-desc">${p.desc}</p>
+                        <span class="category-badge">${escapeHtml(p.category)}</span>
+                        <h3>${escapeHtml(p.name)}</h3>
+                        <p class="product-desc">${escapeHtml(p.desc)}</p>
                     </div>
                     <div>
-                        <p class="price">R$ ${formatBRL(p.price)}</p>
+                        <p class="price">${formatBRL(p.price)}</p>
+                        <p class="installments">ou 3x de ${formatBRL(p.price / 3)} sem juros</p>
                         <button class="add-btn" id="btn-${p.id}" onclick="addToCart(${p.id})">Adicionar ao Carrinho</button>
                     </div>
-                </div>
+                </article>
             `).join('');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
 
         function addToCart(id) {
@@ -153,13 +198,15 @@
             }
             saveCart();
             updateCartUI();
+            showToast('Produto adicionado ao carrinho!');
 
             const btn = document.getElementById(`btn-${id}`);
             if (btn) {
+                const original = btn.innerText;
                 btn.innerText = "✓ Adicionado";
                 btn.classList.add("added");
                 setTimeout(() => {
-                    btn.innerText = "Adicionar ao Carrinho";
+                    btn.innerText = original;
                     btn.classList.remove("added");
                 }, 900);
             }
@@ -169,9 +216,7 @@
             const item = cart.find(i => i.id === id);
             if (!item) return;
             item.qty += delta;
-            if (item.qty <= 0) {
-                cart = cart.filter(i => i.id !== id);
-            }
+            if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
             saveCart();
             updateCartUI();
         }
@@ -182,5 +227,104 @@
             updateCartUI();
         }
 
+        function clearCart() {
+            if (cart.length === 0) return;
+            if (!confirm('Limpar todo o carrinho?')) return;
+            cart = [];
+            saveCart();
+            updateCartUI();
+        }
+
         function updateCartUI() {
             const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+
+            const container = document.getElementById('cart-items');
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('cart-total').textContent = formatBRL(total);
+            document.getElementById('checkout-btn').disabled = cart.length === 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = "<p style='text-align:center; color:#6b7280; padding:1rem 0;'>Seu carrinho está vazio.</p>";
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div style="flex:1;">
+                        <strong>${escapeHtml(item.name)}</strong><br>
+                        <small>${formatBRL(item.price)} cada</small>
+                    </div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="changeQty(${item.id}, -1)" aria-label="Diminuir">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty(${item.id}, 1)" aria-label="Aumentar">+</button>
+                    </div>
+                    <strong>${formatBRL(item.price * item.qty)}</strong>
+                    <button class="remove-btn" onclick="removeFromCart(${item.id})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            const isOpen = modal.classList.contains('open');
+            modal.classList.toggle('open');
+            document.body.style.overflow = isOpen ? '' : 'hidden';
+        }
+
+        // Fechar com ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('cart-modal');
+                if (modal.classList.contains('open')) toggleCart();
+            }
+        });
+
+        function checkoutWhatsApp() {
+            const nameInput = document.getElementById('customer-name');
+            const addressInput = document.getElementById('customer-address');
+            const payment = document.getElementById('payment-method').value;
+
+            let hasError = false;
+            [nameInput, addressInput].forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    hasError = true;
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+
+            if (hasError) {
+                alert('Preencha seu nome e endereço para continuar.');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            let message = `*NOVO PEDIDO - MINHA LOJA*%0A%0A`;
+            message += `*Cliente:* ${encodeURIComponent(nameInput.value.trim())}%0A`;
+            message += `*Endereço:* ${encodeURIComponent(addressInput.value.trim())}%0A`;
+            message += `*Pagamento:* ${encodeURIComponent(payment)}%0A%0A`;
+            message += `*Itens:*%0A`;
+
+            cart.forEach(item => {
+                message += `• ${encodeURIComponent(item.name)} - ${item.qty}x ${encodeURIComponent(formatBRL(item.price))} = ${encodeURIComponent(formatBRL(item.price * item.qty))}%0A`;
+            });
+
+            message += `%0A*Total: ${encodeURIComponent(formatBRL(total))}*`;
+
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+
+        // Inicializar
+        renderProducts();
+        updateCartUI();
+    </script>
+</body>
+</html>
