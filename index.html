@@ -3,103 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojas D'Oliveira | Ofertas Especiais com Entrega Rápida</title>
-    <meta name="description" content="Compre eletrônicos, acessórios e utilidades para casa nas Lojas D'Oliveira. Peça rápido e finalize direto pelo WhatsApp!">
-    <meta property="og:title" content="Lojas D'Oliveira | Ofertas Especiais">
-    <meta property="og:description" content="Confira nossas ofertas relâmpago e peça direto pelo WhatsApp.">
-    <meta property="og:type" content="website">
+    <title>Minha Loja | Ofertas Especiais</title>
     <style>
+        /* Estilos Gerais */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f5f5f5; color: #222; line-height: 1.5; padding-bottom: 40px; }
-
+        body { background-color: #f4f4f9; color: #333; line-height: 1.6; }
+        
         /* Cabeçalho */
-        header { background: linear-gradient(180deg, #f53d2d 0%, #f63 100%); color: #fff; padding: 0.9rem 5%; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
-        .header-top { max-width: 1150px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
-        header h1 { font-size: 1.45rem; letter-spacing: 0.5px; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; }
-
-        .search-box { flex: 1; min-width: 220px; max-width: 580px; display: flex; background: white; border-radius: 4px; padding: 3px; }
-        .search-box input { flex: 1; border: none; outline: none; padding: 0.5rem 0.8rem; font-size: 0.95rem; border-radius: 3px; }
-        .search-box button { background: #ee4d2d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 3px; cursor: pointer; font-weight: bold; }
-        .search-box button:hover { background: #d73211; }
-
-        .cart-btn { background-color: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 0.6rem 1.1rem; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; white-space: nowrap; }
-        .cart-btn:hover { background-color: rgba(255,255,255,0.28); }
+        header { background-color: #111827; color: #fff; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        header h1 { font-size: 1.5rem; letter-spacing: 1px; }
+        .cart-btn { background-color: #2563eb; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .cart-btn:hover { background-color: #1d4ed8; }
 
         /* Banner Principal */
-        .hero { background: linear-gradient(135deg, #ee4d2d, #ff7337); color: white; text-align: center; padding: 1.8rem 1rem; margin-bottom: 1.2rem; }
-        .hero h2 { font-size: 1.8rem; margin-bottom: 0.3rem; }
-        .hero p { font-size: 0.98rem; opacity: 0.95; }
-        .hero-badges { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.9rem; font-size: 0.82rem; }
-        .hero-badges span { background: rgba(0,0,0,0.18); padding: 4px 10px; border-radius: 20px; }
-
-        /* Barra de Categorias */
-        .categories { max-width: 1150px; margin: 0 auto 1.2rem auto; padding: 0 1rem; display: flex; gap: 0.6rem; overflow-x: auto; scrollbar-width: none; }
-        .categories::-webkit-scrollbar { display: none; }
-        .cat-pill { background: white; border: 1px solid #e5e7eb; padding: 0.5rem 1.1rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 500; white-space: nowrap; transition: 0.2s; }
-        .cat-pill.active, .cat-pill:hover { background: #ee4d2d; color: white; border-color: #ee4d2d; }
-
-        /* Barra da Seção e Ordenação */
-        .container { max-width: 1150px; margin: auto; padding: 0 1rem; }
-        .section-bar { background: white; padding: 0.8rem 1.2rem; border-bottom: 3px solid #ee4d2d; font-weight: bold; color: #ee4d2d; text-transform: uppercase; margin-bottom: 1rem; border-radius: 4px 4px 0 0; font-size: 0.92rem; display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
-        .sort-select { padding: 0.4rem 0.6rem; border: 1px solid #d1d5db; border-radius: 4px; font-size: 0.85rem; color: #374151; background: #fff; cursor: pointer; }
+        .hero { background: linear-gradient(135deg, #2563eb, #1e40af); color: white; text-align: center; padding: 3rem 1rem; margin-bottom: 2rem; }
+        .hero h2 { font-size: 2.2rem; margin-bottom: 0.5rem; }
 
         /* Grade de Produtos */
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
-        .product-card { background: white; border-radius: 6px; padding: 0.9rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; position: relative; border: 1px solid transparent; }
-        .product-card:hover { transform: translateY(-4px); box-shadow: 0 6px 14px rgba(0,0,0,0.12); border-color: #ee4d2d; }
-        .product-card.out-of-stock { opacity: 0.72; }
+        .container { max-width: 1100px; margin: auto; padding: 0 1rem; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .product-card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; transition: transform 0.2s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 1rem; background-color: #e5e7eb; }
+        .img-placeholder { width: 100%; height: 200px; border-radius: 5px; margin-bottom: 1rem; background-color: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 0.9rem; }
+        .product-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .price { font-size: 1.3rem; font-weight: bold; color: #16a34a; margin-bottom: 1rem; }
+        .add-btn { background-color: #111827; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; }
+        .add-btn:hover { background-color: #374151; }
 
-        .badge-off { position: absolute; top: 0; right: 0; background: #ffd839; color: #ee4d2d; font-weight: bold; font-size: 0.75rem; padding: 3px 7px; border-bottom-left-radius: 6px; border-top-right-radius: 5px; z-index: 2; }
-        .badge-soldout { position: absolute; top: 0; left: 0; background: #374151; color: #fff; font-weight: bold; font-size: 0.72rem; padding: 3px 8px; border-bottom-right-radius: 6px; border-top-left-radius: 5px; z-index: 2; }
+        /* Modal do Carrinho */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 200; }
+        .modal-content { background: white; padding: 2rem; border-radius: 8px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 1rem; margin-bottom: 1rem; }
+        .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; gap: 0.5rem; }
+        .qty-controls { display: flex; align-items: center; gap: 0.4rem; }
+        .qty-btn { background: #e5e7eb; border: none; width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .remove-btn { color: #dc2626; background: none; border: none; cursor: pointer; font-size: 0.9rem; margin-left: 0.5rem; }
+        .cart-total { font-size: 1.3rem; font-weight: bold; text-align: right; margin: 1.5rem 0; }
+        .checkout-btn { background-color: #16a34a; color: white; border: none; padding: 0.8rem; width: 100%; border-radius: 5px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+        .checkout-btn:hover { background-color: #15803d; }
 
-        .card-clickable { cursor: pointer; }
-        .product-card img { width: 100%; height: 185px; object-fit: cover; border-radius: 4px; margin-bottom: 0.8rem; background-color: #f3f4f6; }
-        .img-placeholder { width: 100%; height: 185px; border-radius: 4px; margin-bottom: 0.8rem; background-color: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 0.85rem; text-align: center; padding: 0.5rem; }
+        /* Rodapé */
+        footer { text-align: center; padding: 2rem; background: #111827; color: #9ca3af; margin-top: 2rem; }
+    </style>
+</head>
+<body>
 
-        .product-card h3 { font-size: 0.98rem; font-weight: 500; margin-bottom: 0.45rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .old-price { font-size: 0.8rem; color: #9ca3af; text-decoration: line-through; }
-        .price { font-size: 1.25rem; font-weight: bold; color: #ee4d2d; margin-bottom: 0.2rem; }
-        .meta-info { font-size: 0.75rem; color: #6b7280; margin-bottom: 0.8rem; display: flex; justify-content: space-between; }
+    <header>
+        <h1>Minha Loja</h1>
+        <button class="cart-btn" onclick="toggleCart()">🛒 Carrinho (<span id="cart-count">0</span>)</button>
+    </header>
 
-        .add-btn { background-color: #ee4d2d; color: white; border: none; padding: 0.65rem 1rem; border-radius: 4px; cursor: pointer; width: 100%; font-size: 0.92rem; font-weight: 600; transition: 0.2s; }
-        .add-btn:hover:not(:disabled) { background-color: #d73211; }
-        .add-btn:disabled { background-color: #9ca3af; cursor: not-allowed; }
+    <section class="hero">
+        <h2>Os Melhores Produtos com Entrega Rápida</h2>
+        <p>Escolha seus itens abaixo e finalize seu pedido direto pelo WhatsApp!</p>
+    </section>
 
-        /* Modais (Carrinho e Detalhes) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.58); justify-content: center; align-items: center; z-index: 200; padding: 1rem; }
-        .modal-content { background: white; padding: 1.5rem; border-radius: 8px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 0.8rem; margin-bottom: 1rem; }
-        .modal-header h2 { font-size: 1.2rem; color: #ee4d2d; }
-        .close-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #666; line-height: 1; }
+    <main class="container">
+        <div class="products-grid" id="products-list"></div>
+    </main>
 
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid #f0f0f0; gap: 0.5rem; font-size: 0.9rem; }
-        .cart-item-info { flex: 1; }
-        .cart-item-title { font-weight: 600; display: block; }
-        .cart-item-sub { color: #6b7280; font-size: 0.82rem; }
-        .qty-controls { display: flex; align-items: center; gap: 0.35rem; }
-        .qty-btn { background: #f3f4f6; border: 1px solid #d1d5db; width: 26px; height: 26px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .remove-btn { color: #dc2626; background: none; border: none; cursor: pointer; font-size: 0.82rem; margin-left: 0.35rem; }
+    <!-- Janela do Carrinho -->
+    <div class="modal" id="cart-modal" onclick="if(event.target === this) toggleCart()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Seu Carrinho</h2>
+                <button class="close-btn" onclick="toggleCart()">&times;</button>
+            </div>
+            <div id="cart-items"></div>
+            <div class="cart-total">Total: R$ <span id="cart-total">0,00</span></div>
+            <button class="checkout-btn" onclick="checkoutWhatsApp()">Finalizar Pedido no WhatsApp</button>
+        </div>
+    </div>
 
-        /* Cupom e Resumo */
-        .coupon-box { display: flex; gap: 0.4rem; margin-top: 0.9rem; }
-        .coupon-box input { flex: 1; padding: 0.5rem 0.7rem; border: 1px solid #d1d5db; border-radius: 4px; font-size: 0.88rem; text-transform: uppercase; }
-        .coupon-box button { background: #111827; color: white; border: none; padding: 0 0.9rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    <footer>
+        <p>&copy; 2026 Minha Loja. Todos os direitos reservados.</p>
+    </footer>
 
-        .checkout-fields { margin-top: 0.9rem; display: flex; flex-direction: column; gap: 0.6rem; background: #f9fafb; padding: 0.9rem; border-radius: 6px; border: 1px solid #e5e7eb; }
-        .checkout-fields input, .checkout-fields select, .checkout-fields textarea { width: 100%; padding: 0.55rem 0.75rem; border: 1px solid #d1d5db; border-radius: 4px; font-size: 0.9rem; background: white; }
+    <script>
+        // 1. CONFIGURE SEU NÚMERO DE WHATSAPP AQUI (Apenas números, com DDI e DDD)
+        const WHATSAPP_NUMBER = "5543999999999";
 
-        .summary-box { margin: 1rem 0; padding-top: 0.8rem; border-top: 1px solid #e5e7eb; font-size: 0.92rem; }
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 0.35rem; color: #4b5563; }
-        .summary-row.discount { color: #16a34a; font-weight: 600; }
-        .summary-row.total { font-size: 1.2rem; font-weight: bold; color: #111; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed #d1d5db; }
-        .summary-row.total span:last-child { color: #ee4d2d; }
+        // 2. CADASTRE SEUS PRODUTOS AQUI (Substitua "img" por URLs diretas de imagens)
+        const products = [
+            { id: 1, name: "Fone Bluetooth Pro", price: 149.90, img: "" },
+            { id: 2, name: "Smartwatch Esportivo", price: 229.00, img: "" },
+            { id: 3, name: "Mochila Impermeável", price: 119.50, img: "" },
+            { id: 4, name: "Garrafa Térmica Inox", price: 65.00, img: "" }
+        ];
 
-        .checkout-btn { background-color: #25D366; color: white; border: none; padding: 0.85rem; width: 100%; border-radius: 5px; font-size: 1.02rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .checkout-btn:hover { background-color: #1ebe57; }
-        .clear-cart-btn { background: none; border: none; color: #6b7280; font-size: 0.82rem; text-decoration: underline; cursor: pointer; display: block; margin: 0.7rem auto 0 auto; }
+        let cart = [];
 
-        /* Detalhes do Produto */
-        .detail-img { width: 100%; max-height: 260px; object-fit: cover; border-radius: 6px; margin-bottom: 1rem; background: #f3f4f6; }
-        .detail-desc { color: #4b5563; font-size: 0.94rem; margin: 0.8rem 0 1.2rem 0; }
+        function formatBRL(value) {
+            return value.toFixed(2).replace('.', ',');
+        }
 
-        /* Botão Flutuante WhatsApp e Toast */
+        function renderProducts() {
+            const list = document.getElementById('products-list');
+            list.innerHTML = products.map(p => `
+                <div class="product-card">
+                    ${p.img 
+                        ? `<img src="${p.img}" alt="${p.name}">` 
+                        : `<div class="img-placeholder">Sem imagem</div>`
+                    }
+                    <h3>${p.name}</h3>
+                    <p class="price">R$ ${formatBRL(p.price)}</p>
+                    <button class="add-btn" onclick="addToCart(${p.id})">Adicionar ao Carrinho</button>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                const product = products.find(p => p.id === id);
+                if (product) cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+            const cartItems = document.getElementById('cart-items');
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = "<p>Seu carrinho está vazio.</p>";
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <span>${item.name} (R$ ${formatBRL(item.price * item.qty)})</span>
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart(${item.id})">Remover</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('cart-total').innerText = formatBRL(total);
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+            updateCartUI();
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return alert("Adicione produtos ao carrinho primeiro!");
+
+            let message = "Olá! Gostaria de fazer o seguinte pedido:\n\n";
+            cart.forEach(item => {
+                message += `- ${item.qty}x ${item.name}: R$ ${formatBRL(item.price * item.qty)}\n`;
+            });
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            message += `\n*Total: R$ ${formatBRL(total)}*`;
+
+            const url = `https://wa.me{WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
